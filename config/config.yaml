@@ -1,0 +1,57 @@
+# PDF Agent Configuration Example
+
+input_folder: ./input
+output_folder: ./output
+report_folder: ./reports
+
+llm_enabled: true
+llm_model: gemma3n
+
+default_naming: "{date}_{category}_{company}_{content_summary}.pdf"
+date_format: "%y%m%d"
+language: de
+
+fields:
+  - document_type
+  - date
+  - company
+  - content_summary
+
+labels:
+  - shopping
+  - travel
+  - car
+  - medical
+  - housing
+  - tax
+  - work
+  - study
+  - finance
+  - food
+  - retirement
+
+label_threshold: 0.8
+
+document_types_list:
+  - invoice
+  - payslip
+  - contract
+  - other
+
+document_types:
+  invoice:
+    folder: rechnungen/{year}/
+    naming: "{date}_rechnung_{company}_{content_summary}.pdf"
+    label_overrides:
+      car:
+        folder: rechnungen/{year}/
+        naming: "{date}_rechnung_kfz_{company}_{content_summary}.pdf"
+  payslip:
+    folder: arbeit/{company}/{company}_gehaltsnachweis/{year}/
+    naming: "{date}_{company}_gehalt.pdf"
+  contract:
+    folder: vertraege/
+    naming: "{date}_vertrag_{company}_{content_summary}.pdf"
+  other:
+    folder: sonstiges/
+    naming: "{date}_sonstiges_{company}_{content_summary}.pdf"
